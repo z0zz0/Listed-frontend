@@ -1,0 +1,53 @@
+﻿.shell {
+  min-height: 100vh;
+  background: linear-gradient(145deg, #f8fafc 0%, #eef2ff 100%);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #dbe1ea;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+}
+
+.brand {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.nav {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.link,
+.activeLink {
+  text-decoration: none;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.link {
+  color: #334155;
+}
+
+.link:hover {
+  background: #eef2ff;
+}
+
+.activeLink {
+  color: #1d4ed8;
+  background: #dbeafe;
+}
+
+.main {
+  width: min(960px, 100%);
+  margin: 0 auto;
+  padding: 1.5rem;
+}

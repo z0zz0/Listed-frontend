@@ -1,0 +1,20 @@
+﻿.alert {
+  border-radius: 0.5rem;
+  padding: 0.75rem 0.875rem;
+  font-size: 0.9rem;
+}
+
+.error {
+  color: var(--color-danger);
+  background: var(--color-danger-bg);
+}
+
+.success {
+  color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+.info {
+  color: var(--color-info);
+  background: var(--color-info-bg);
+}
