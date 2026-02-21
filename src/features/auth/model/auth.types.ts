@@ -1,4 +1,10 @@
-﻿export type AuthStatus = 'anonymous' | 'authenticated' | 'loading';
+﻿export const authStatus = {
+  anonymous: 'anonymous',
+  authenticated: 'authenticated',
+  loading: 'loading',
+} as const;
+
+export type AuthStatus = (typeof authStatus)[keyof typeof authStatus];
 
 export interface AuthSession {
   userId: string;

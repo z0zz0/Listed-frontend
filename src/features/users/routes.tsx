@@ -1,22 +1,18 @@
 ﻿import { Navigate, type RouteObject } from 'react-router-dom';
 
-import { CreateUserPage } from '@/features/users/pages/CreateUserPage';
-import { GetUserByEmailPage } from '@/features/users/pages/GetUserByEmailPage';
+import { routeSegments } from '@/app/router/paths';
+import { UserProfilePage } from '@/features/users/pages/UserProfilePage';
 
 export const usersRoutes: RouteObject = {
-  path: 'users',
+  path: routeSegments.users.root,
   children: [
     {
       index: true,
-      element: <Navigate to="by-email" replace />,
+      element: <Navigate to={routeSegments.users.me} replace />,
     },
     {
-      path: 'new',
-      element: <CreateUserPage />,
-    },
-    {
-      path: 'by-email',
-      element: <GetUserByEmailPage />,
+      path: routeSegments.users.me,
+      element: <UserProfilePage />,
     },
   ],
 };

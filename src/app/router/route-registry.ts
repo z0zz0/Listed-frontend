@@ -1,6 +1,10 @@
 ﻿import { createElement } from 'react';
 import type { RouteObject } from 'react-router-dom';
 
+import { routePaths, routeSegments } from '@/app/router/paths';
+import { RedirectIfAuthenticated } from '@/app/router/guards/RedirectIfAuthenticated';
+import { RequireAuth } from '@/app/router/guards/RequireAuth';
+import { SignUpPage } from '@/features/auth/pages/SignUpPage';
 import { RootLayout } from '@/app/router/root-layout';
 import { usersRoutes } from '@/features/users/routes';
 import { HomePage } from '@/pages/HomePage';
@@ -8,16 +12,28 @@ import { NotFoundPage } from '@/pages/NotFoundPage';
 
 export const appRoutes: RouteObject[] = [
   {
-    path: '/',
+    path: routePaths.home,
     element: createElement(RootLayout),
     children: [
       {
-        index: true,
-        element: createElement(HomePage),
+        element: createElement(RedirectIfAuthenticated),
+        children: [
+          {
+            index: true,
+            element: createElement(HomePage),
+          },
+          {
+            path: routeSegments.signup,
+            element: createElement(SignUpPage),
+          },
+        ],
       },
-      usersRoutes,
       {
-        path: '*',
+        element: createElement(RequireAuth),
+        children: [usersRoutes],
+      },
+      {
+        path: routeSegments.wildcard,
         element: createElement(NotFoundPage),
       },
     ],

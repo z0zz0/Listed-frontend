@@ -1,18 +1,16 @@
 ﻿import { Link } from 'react-router-dom';
 
+import { routePaths } from '@/app/router/paths';
 import styles from '@/pages/Pages.module.scss';
 
 export function HomePage() {
   return (
     <section className={styles.page}>
-      <h1>Listed Frontend</h1>
-      <p>This frontend currently implements the users feature module.</p>
+      <h1>Welcome Back</h1>
+      <p>This is the public front page. Login form is implemented in the next phase.</p>
       <ul className={styles.links}>
         <li>
-          <Link to="/users/new">Create a user</Link>
-        </li>
-        <li>
-          <Link to="/users/by-email">Find user by email</Link>
+          <Link to={routePaths.signup}>Create an account</Link>
         </li>
       </ul>
     </section>

@@ -1,7 +1,7 @@
 ﻿import { useCallback, useMemo, useState, type ReactNode } from 'react';
 
 import { AuthContext } from '@/features/auth/context/AuthContext';
-import type { AuthContextValue, AuthSession, AuthStatus, LoginInput } from '@/features/auth/model/auth.types';
+import { authStatus, type AuthContextValue, type AuthSession, type AuthStatus, type LoginInput } from '@/features/auth/model/auth.types';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -9,20 +9,20 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [session, setSession] = useState<AuthSession | null>(null);
-  const [status, setStatus] = useState<AuthStatus>('anonymous');
+  const [status, setStatus] = useState<AuthStatus>(authStatus.anonymous);
 
   const login = useCallback(async (input: LoginInput) => {
-    setStatus('loading');
+    setStatus(authStatus.loading);
     setSession({
       userId: 'local-dev-user',
       email: input.email,
     });
-    setStatus('authenticated');
+    setStatus(authStatus.authenticated);
   }, []);
 
   const logout = useCallback(async () => {
     setSession(null);
-    setStatus('anonymous');
+    setStatus(authStatus.anonymous);
   }, []);
 
   const refreshSession = useCallback(async () => {
