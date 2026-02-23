@@ -15,3 +15,17 @@ export const routeSegments = {
   },
   wildcard: '*',
 } as const;
+
+export const apiPaths = {
+  auth: {
+    login: '/api/auth/login',
+    refresh: '/api/auth/refresh',
+    logout: '/api/auth/logout',
+    logoutAll: '/api/auth/logout-all',
+    me: '/api/auth/me',
+  },
+  users: {
+    root: '/api/users',
+    byEmail: '/api/users/by-email',
+  },
+} as const;

@@ -1,0 +1,27 @@
+.form {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.submitButton {
+  width: 100%;
+  border-radius: 999px;
+  margin-top: 0.2rem;
+}
+
+.metaRow {
+  margin: 0.1rem 0 0;
+  text-align: center;
+  color: #475569;
+  font-size: 0.9rem;
+}
+
+.signupLink {
+  color: #1d4ed8;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.signupLink:hover {
+  text-decoration: underline;
+}

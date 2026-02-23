@@ -1,29 +1,56 @@
-﻿import { screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 
-import { routePaths } from '@/app/router/paths';
+import { apiPaths, routePaths } from '@/app/router/paths';
 import { appRoutes } from '@/app/router/route-registry';
 import { renderWithProviders } from '@/test/test-utils';
 
 describe('app router', () => {
-  it('renders public home route', () => {
+  const fetchMock = vi.fn() as unknown as ReturnType<typeof vi.fn>;
+
+  beforeEach(() => {
+    vi.stubGlobal('fetch', fetchMock as unknown as typeof fetch);
+    fetchMock.mockImplementation((input: RequestInfo | URL) => {
+      const url = typeof input === 'string'
+        ? input
+        : input instanceof URL
+          ? input.toString()
+          : input.url;
+
+      if (url.includes(apiPaths.auth.refresh) || url.includes(apiPaths.auth.me)) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({ code: 'Auth.Unauthorized.InvalidRefreshToken', message: 'Invalid refresh token.' }),
+            {
+              status: 401,
+              headers: { 'Content-Type': 'application/json' },
+            },
+          ),
+        );
+      }
+
+      return Promise.resolve(new Response(null, { status: 404 }));
+    });
+  });
+
+  it('renders public home route', async () => {
     const router = createMemoryRouter(appRoutes, {
       initialEntries: [routePaths.home],
     });
 
     renderWithProviders(<RouterProvider router={router} />);
 
-    expect(screen.getByRole('heading', { name: 'Welcome Back' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Welcome Back' })).toBeInTheDocument();
   });
 
-  it('renders public signup route', () => {
+  it('renders public signup route', async () => {
     const router = createMemoryRouter(appRoutes, {
       initialEntries: [routePaths.signup],
     });
 
     renderWithProviders(<RouterProvider router={router} />);
 
-    expect(screen.getByRole('heading', { name: 'Sign Up' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Sign Up' })).toBeInTheDocument();
   });
 
   it('redirects anonymous users from /users/me to /', async () => {
@@ -46,13 +73,13 @@ describe('app router', () => {
     expect(await screen.findByRole('heading', { name: 'Welcome Back' })).toBeInTheDocument();
   });
 
-  it('renders not found page for unknown route', () => {
+  it('renders not found page for unknown route', async () => {
     const router = createMemoryRouter(appRoutes, {
       initialEntries: ['/missing-route'],
     });
 
     renderWithProviders(<RouterProvider router={router} />);
 
-    expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
   });
 });

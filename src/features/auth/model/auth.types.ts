@@ -21,5 +21,5 @@ export interface AuthContextValue {
   status: AuthStatus;
   login: (input: LoginInput) => Promise<void>;
   logout: () => Promise<void>;
-  refreshSession: () => Promise<void>;
+  hydrateSession: () => Promise<void>;
 }
