@@ -1,5 +1,6 @@
-﻿import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
+import { t } from '@/shared/i18n';
 import styles from '@/shared/ui/Button/Button.module.scss';
 
 type ButtonVariant = 'primary' | 'secondary';
@@ -15,7 +16,7 @@ export function Button({ children, variant = 'primary', isLoading = false, class
 
   return (
     <button {...props} className={classNames} disabled={isLoading || props.disabled}>
-      {isLoading ? 'Please wait...' : children}
+      {isLoading ? t('common.button.pleaseWait') : children}
     </button>
   );
 }

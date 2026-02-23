@@ -1,14 +1,14 @@
 ﻿import { z } from 'zod';
 
 export const createUserSchema = z.object({
-  email: z.string().trim().pipe(z.email('Please enter a valid email address.')),
-  password: z.string().min(8, 'Password must be at least 8 characters.'),
+  email: z.string().trim().pipe(z.email('validation.email.invalid')),
+  password: z.string().min(8, 'validation.password.minLength8'),
 });
 
 export type CreateUserFormValues = z.infer<typeof createUserSchema>;
 
 export const getUserByEmailSchema = z.object({
-  email: z.string().trim().pipe(z.email('Please enter a valid email address.')),
+  email: z.string().trim().pipe(z.email('validation.email.invalid')),
 });
 
 export type GetUserByEmailFormValues = z.infer<typeof getUserByEmailSchema>;

@@ -1,4 +1,5 @@
 import { LoginForm } from '@/features/auth/ui/LoginForm';
+import { t } from '@/shared/i18n';
 import styles from '@/pages/HomePage.module.scss';
 
 export function HomePage() {
@@ -7,9 +8,9 @@ export function HomePage() {
       <div className={styles.heroGlow} aria-hidden />
 
       <div className={styles.loginCard}>
-        <p className={styles.brand}>Listed</p>
-        <h1 className={styles.title}>Welcome Back</h1>
-        <p className={styles.subtitle}>Sign in to continue to your account.</p>
+        <p className={styles.brand}>{t('home.brand')}</p>
+        <h1 className={styles.title}>{t('home.title')}</h1>
+        <p className={styles.subtitle}>{t('home.subtitle')}</p>
 
         <LoginForm />
       </div>

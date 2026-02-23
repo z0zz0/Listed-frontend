@@ -3,12 +3,13 @@
 import { routePaths } from '@/app/router/paths';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { authStatus } from '@/features/auth/model/auth.types';
+import { t } from '@/shared/i18n';
 
 export function RedirectIfAuthenticated() {
   const { session, status } = useAuth();
 
   if (status === authStatus.loading) {
-    return <p>Checking session...</p>;
+    return <p>{t('common.status.checkingSession')}</p>;
   }
 
   if (status === authStatus.authenticated && session) {

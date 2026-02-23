@@ -1,4 +1,4 @@
-﻿import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { getUserByEmail } from '@/features/users/api/getUserByEmail';
 import { mapGetUserResponse } from '@/features/users/model/user.mappers';
@@ -13,7 +13,7 @@ export function useUserByEmailQuery(email: string | null) {
     queryKey: email ? usersQueryKeys.byEmail(email) : [...usersQueryKeys.root, 'by-email', 'idle'],
     queryFn: async () => {
       if (!email) {
-        throw new Error('Email is required to fetch a user.');
+        throw new Error('validation.email.requiredForFetch');
       }
 
       const response = await getUserByEmail(email);

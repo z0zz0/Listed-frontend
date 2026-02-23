@@ -57,8 +57,12 @@ Build frontend code that is modular, testable, and easy to evolve feature-by-fea
 - Prefer explicit constants for comparison values (status enums/constants over magic strings).
 - Assume backend API response keys are camelCase. Do not add PascalCase fallback parsing unless explicitly required.
 - Mapper functions may throw on invalid response shape (contract guard).
-- UI must not show raw internal/mapper errors to users. Only backend `ApiError.message` may be surfaced; otherwise show safe fallback text.
+- UI must not show raw internal/mapper errors to users. Prefer mapping `ApiError.code` to a message key, otherwise show safe fallback text.
 - Prefer Zod v4 format style (for example `.pipe(z.email(...))`) over deprecated chained format APIs.
+- Do not hardcode user-facing strings in TS/TSX.
+- Use i18n message keys and resolve copy via `t(...)` from `src/shared/i18n`.
+- Store translation values under `src/shared/i18n/messages/` (starting with `en-US`).
+- When schema or backend errors can be shown in UI, use message keys/codes rather than raw English literals.
 
 ## Styling and UI
 - Use CSS Modules + SCSS for component/page styles.

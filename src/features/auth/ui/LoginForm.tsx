@@ -7,6 +7,7 @@ import { routePaths } from '@/app/router/paths';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { loginSchema, type LoginFormValues } from '@/features/auth/model/auth.schemas';
 import { getErrorMessage } from '@/shared/api/apiError';
+import { t, tMaybeKey } from '@/shared/i18n';
 import { Alert } from '@/shared/ui/Alert/Alert';
 import { Button } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input/Input';
@@ -37,41 +38,42 @@ export function LoginForm() {
         password: values.password,
       });
     } catch (error) {
-      setSubmitError(getErrorMessage(error, 'Login failed. Please check your credentials and try again.'));
+      setSubmitError(getErrorMessage(error, 'error.auth.loginFailed'));
     }
   });
 
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate>
       <Input
-        label="User"
-        placeholder="Email address"
+        label={t('auth.login.form.userLabel')}
+        placeholder={t('auth.login.form.emailPlaceholder')}
         autoComplete="username"
         {...register('email')}
-        error={errors.email?.message}
+        error={tMaybeKey(errors.email?.message)}
       />
 
       <Input
-        label="Password"
+        label={t('auth.login.form.passwordLabel')}
         type="password"
-        placeholder="Password"
+        placeholder={t('auth.login.form.passwordPlaceholder')}
         autoComplete="current-password"
         {...register('password')}
-        error={errors.password?.message}
+        error={tMaybeKey(errors.password?.message)}
       />
 
       {submitError ? <Alert variant="error">{submitError}</Alert> : null}
 
       <Button type="submit" className={styles.submitButton} isLoading={isSubmitting}>
-        Log in
+        {t('auth.login.form.submit')}
       </Button>
 
       <p className={styles.metaRow}>
-        Need an account?{' '}
+        {t('auth.login.form.needAccount')}{' '}
         <Link to={routePaths.signup} className={styles.signupLink}>
-          Sign up
+          {t('auth.login.form.signUpLink')}
         </Link>
       </p>
     </form>
   );
 }
+

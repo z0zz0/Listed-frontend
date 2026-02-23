@@ -65,9 +65,17 @@ React SPA frontend for Listed with modular feature structure.
   - `httpClient` handles one-time `401 -> refresh -> retry` centrally.
   - `AuthProvider` handles startup session hydration via `hydrateSession`.
 - Error-handling rules:
-  - Show backend `ApiError.message` to users.
+  - Do not hardcode user-facing error copy in components/hooks.
+  - Prefer backend `ApiError.code` -> frontend message-key mapping.
+  - If no known code mapping exists, show a safe fallback key/message.
   - Internal/mapper/contract errors must use safe fallback user messages.
   - Mappers may throw for invalid response shape (contract guard).
+- i18n rules:
+  - Do not hardcode user-facing strings in TS/TSX.
+  - Use message keys and resolve with `t(...)` from `src/shared/i18n`.
+  - For optional values that may already be plain text, use `tMaybeKey(...)`.
+  - Keep translation values in `src/shared/i18n/messages/en-US.ts`.
+  - Start with `en-US`; add other locales later without changing call sites.
 - Backend contract assumption:
   - API JSON response keys are camelCase.
   - Frontend parsing should not rely on PascalCase fallbacks.

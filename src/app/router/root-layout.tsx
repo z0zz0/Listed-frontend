@@ -3,6 +3,7 @@
 import { routePaths } from '@/app/router/paths';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { authStatus } from '@/features/auth/model/auth.types';
+import { t } from '@/shared/i18n';
 import styles from '@/app/router/root-layout.module.scss';
 
 export function RootLayout() {
@@ -12,18 +13,18 @@ export function RootLayout() {
   return (
     <div className={styles.shell}>
       <header className={styles.header}>
-        <div className={styles.brand}>Listed Frontend</div>
+        <div className={styles.brand}>{t('nav.brand')}</div>
         <nav className={styles.nav}>
           {!isAuthenticated ? (
             <>
               <NavLink to={routePaths.home} className={({ isActive }) => (isActive ? styles.activeLink : styles.link)} end>
-                Home
+                {t('nav.home')}
               </NavLink>
               <NavLink
                 to={routePaths.signup}
                 className={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
               >
-                Sign Up
+                {t('nav.signUp')}
               </NavLink>
             </>
           ) : (
@@ -32,7 +33,7 @@ export function RootLayout() {
                 to={routePaths.users.me}
                 className={({ isActive }) => (isActive ? styles.activeLink : styles.link)}
               >
-                My Page
+                {t('nav.myPage')}
               </NavLink>
             </>
           )}

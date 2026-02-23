@@ -4,9 +4,9 @@ export const loginSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(1, 'User is required.')
-    .pipe(z.email('Enter a valid email address.')),
-  password: z.string().min(1, 'Password is required.'),
+    .min(1, 'validation.user.required')
+    .pipe(z.email('validation.email.invalid')),
+  password: z.string().min(1, 'validation.password.required'),
 });
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
