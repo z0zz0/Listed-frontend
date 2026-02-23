@@ -28,6 +28,7 @@ Build frontend code that is modular, testable, and easy to evolve feature-by-fea
 - Use `src/app/router/paths.ts` as the single source of truth:
   - `routePaths` for absolute URLs (navigation and links).
   - `routeSegments` for nested child route `path` values.
+  - `apiPaths` for backend endpoint paths.
 - Keep auth guards in `src/app/router/guards`.
 
 ## API / Data / State Boundaries
@@ -44,12 +45,20 @@ Build frontend code that is modular, testable, and easy to evolve feature-by-fea
 - Refresh token and device id are cookie-based; they are not frontend-managed auth proof.
 - Do not treat localStorage/sessionStorage values as proof of authentication.
 - Avoid placeholder auth logic in production paths (for example hardcoded user ids).
+- Access token must be memory-only and managed by `src/shared/api/httpClient.ts`.
+- Do not store access token in localStorage/sessionStorage.
+- Keep one centralized `401 -> refresh -> retry` flow in `httpClient`; do not duplicate this logic inside feature API calls.
+- `AuthProvider` is responsible for startup session hydration via `hydrateSession`.
 
 ## Types, Validation, and Errors
 - Keep strict typing end-to-end.
 - Define/maintain DTOs, domain types, Zod schemas, and mappers in `model/`.
 - Normalize backend errors to `ApiError` shape (`status`, `code`, `message`).
 - Prefer explicit constants for comparison values (status enums/constants over magic strings).
+- Assume backend API response keys are camelCase. Do not add PascalCase fallback parsing unless explicitly required.
+- Mapper functions may throw on invalid response shape (contract guard).
+- UI must not show raw internal/mapper errors to users. Only backend `ApiError.message` may be surfaced; otherwise show safe fallback text.
+- Prefer Zod v4 format style (for example `.pipe(z.email(...))`) over deprecated chained format APIs.
 
 ## Styling and UI
 - Use CSS Modules + SCSS for component/page styles.
@@ -61,6 +70,7 @@ Build frontend code that is modular, testable, and easy to evolve feature-by-fea
 - Mirror source layout under `src/test` for discoverability.
 - Keep `npm run lint:test-locations` passing.
 - For behavior changes, add/update tests in the same change.
+- Tests should use shared path constants from `src/app/router/paths.ts` instead of hardcoded endpoint literals.
 
 ## Environment and Config
 - `VITE_API_BASE_URL` is required and must be a valid absolute URL.
