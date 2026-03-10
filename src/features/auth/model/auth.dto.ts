@@ -4,7 +4,7 @@ export interface AccessTokenResponseDto {
   expiresInSeconds?: number;
 }
 
-export interface GetMeResponseDto {
+export interface GetAuthSessionResponseDto {
   userId?: string;
   email?: string;
   authVersion?: number;

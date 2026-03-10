@@ -67,13 +67,13 @@ export function LoginForm() {
         {t('auth.login.form.submit')}
       </Button>
 
-      <p className={styles.metaRow}>
-        {t('auth.login.form.needAccount')}{' '}
-        <Link to={routePaths.signup} className={styles.signupLink}>
-          {t('auth.login.form.signUpLink')}
-        </Link>
-      </p>
+      <button type="button" className={styles.forgotPasswordButton}>
+        {t('auth.login.form.forgotPassword')}
+      </button>
+
+      <Link to={routePaths.signup} className={styles.createAccountButton}>
+        {t('auth.login.form.createAccount')}
+      </Link>
     </form>
   );
 }
-

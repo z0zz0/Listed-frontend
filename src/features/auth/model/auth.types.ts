@@ -20,6 +20,7 @@ export interface AuthContextValue {
   session: AuthSession | null;
   status: AuthStatus;
   login: (input: LoginInput) => Promise<void>;
+  authenticateWithAccessToken: (accessToken: string) => Promise<void>;
   logout: () => Promise<void>;
   hydrateSession: () => Promise<void>;
 }

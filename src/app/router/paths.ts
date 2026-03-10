@@ -22,10 +22,15 @@ export const apiPaths = {
     refresh: '/api/auth/refresh',
     logout: '/api/auth/logout',
     logoutAll: '/api/auth/logout-all',
-    me: '/api/auth/me',
+    session: '/api/auth/session',
   },
   users: {
     root: '/api/users',
-    byEmail: '/api/users/by-email',
+    signup: {
+      start: '/api/users/signup/start',
+      verifyCode: '/api/users/signup/verify-code',
+      personalInfo: '/api/users/signup/personal-info',
+      complete: '/api/users/signup/complete',
+    },
   },
 } as const;

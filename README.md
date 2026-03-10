@@ -20,7 +20,7 @@ React SPA frontend for Listed with modular feature structure.
 3. Run `npm run dev` for local development.
 
 ## Scripts
-- `npm run dev` starts local development mode (`.env.development`).
+- `npm run dev` starts local development mode (`.env.development`) and proxies `/api` to `http://localhost:5000`.
 - `npm run dev:sandbox` starts sandbox mode (`.env.sandbox`) if your team uses that file.
 - `npm run build` builds production assets (`.env.production`).
 - `npm run build:development` builds using `.env.development`.
@@ -34,9 +34,10 @@ React SPA frontend for Listed with modular feature structure.
 
 ## Environment
 - `VITE_API_BASE_URL` is required and validated at startup.
-- No localhost fallback is used in runtime config.
-- `localhost` should be used only for local development/test.
-- QA and production modes must point to their actual deployed backend URLs.
+- Preferred value is `/` (same-origin mode).
+- In local development, Vite proxy routes `/api` to `http://localhost:5000`.
+- In QA/production, ingress/reverse-proxy must route `/api` to backend on the same origin as the SPA.
+- Absolute API base URLs are optional fallback only for explicit cross-origin scenarios.
 
 ## Structure
 - `src/app`: app bootstrap, providers, and router composition.

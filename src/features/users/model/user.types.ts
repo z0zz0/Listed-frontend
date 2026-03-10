@@ -1,8 +1,3 @@
-﻿export interface CreateUserResult {
-  id: string;
-  email: string;
-}
-
 export interface UserInfo {
   nationality: string;
   firstName: string;

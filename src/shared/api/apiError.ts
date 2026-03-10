@@ -22,8 +22,19 @@ const apiErrorCodeToMessageKey: Partial<Record<string, MessageKey>> = {
   'Auth.NotFound.User': 'error.api.auth.notFound.user',
   'User.Validation.InvalidEmail': 'error.api.user.validation.invalidEmail',
   'User.Validation.InvalidPassword': 'error.api.user.validation.invalidPassword',
+  'User.Validation.PasswordTooShort': 'error.api.user.validation.passwordTooShort',
+  'User.Validation.InvalidFirstName': 'error.api.user.validation.invalidFirstName',
+  'User.Validation.InvalidLastName': 'error.api.user.validation.invalidLastName',
+  'User.Validation.InvalidDateOfBirth': 'error.api.user.validation.invalidDateOfBirth',
+  'User.Validation.InvalidVerificationCode': 'error.api.user.validation.invalidVerificationCode',
+  'User.Validation.VerificationCodeExpired': 'error.api.user.validation.verificationCodeExpired',
+  'User.Validation.SignupStateMissing': 'error.api.user.validation.signupStateMissing',
+  'User.Validation.SignupEmailNotVerified': 'error.api.user.validation.signupEmailNotVerified',
+  'User.Validation.SignupPersonalInfoIncomplete': 'error.api.user.validation.signupPersonalInfoIncomplete',
+  'User.Validation.InvalidUserData': 'error.api.user.validation.invalidUserData',
+  'User.RateLimit.VerificationAttemptsExceeded': 'error.api.user.rateLimit.verificationAttemptsExceeded',
   'User.Conflict.EmailAlreadyInUse': 'error.api.user.conflict.emailAlreadyInUse',
-  'User.NotFound.ByEmail': 'error.api.user.notFound.byEmail',
+  'User.Internal.SignupEmailDeliveryFailed': 'error.api.user.internal.signupEmailDeliveryFailed',
 };
 
 function resolveFallback(fallback: string) {
@@ -72,4 +83,3 @@ export function getErrorMessage(
 
   return resolvedFallback;
 }
-

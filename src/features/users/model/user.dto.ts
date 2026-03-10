@@ -1,13 +1,3 @@
-﻿export interface CreateUserRequestDto {
-  email: string;
-  password: string;
-}
-
-export interface CreateUserResponseDto {
-  id: string;
-  email: string;
-}
-
 export interface GetUserInfoResponseDto {
   nationality: string;
   firstName: string;

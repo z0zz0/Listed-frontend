@@ -13,19 +13,33 @@ function requireEnvValue(name: string): string {
 }
 
 function normalizeApiBaseUrl(rawValue: string): string {
+  const trimmedValue = rawValue.trim();
+
+  if (trimmedValue === '/') {
+    return '/';
+  }
+
+  if (trimmedValue.startsWith('/')) {
+    throw new Error(
+      `[config] ${API_BASE_URL_ENV} must be "/" for same-origin mode, or an absolute URL. Received: "${rawValue}".`,
+    );
+  }
+
   let parsedUrl: URL;
 
   try {
-    parsedUrl = new URL(rawValue);
+    parsedUrl = new URL(trimmedValue);
   } catch {
-    throw new Error(`[config] ${API_BASE_URL_ENV} must be a valid absolute URL. Received: "${rawValue}".`);
+    throw new Error(
+      `[config] ${API_BASE_URL_ENV} must be "/" for same-origin mode, or a valid absolute URL. Received: "${rawValue}".`,
+    );
   }
 
   if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
     throw new Error(`[config] ${API_BASE_URL_ENV} must use http or https protocol. Received: "${parsedUrl.protocol}".`);
   }
 
-  return rawValue.replace(/\/+$/, '');
+  return trimmedValue.replace(/\/+$/, '');
 }
 
 const apiBaseUrl = normalizeApiBaseUrl(requireEnvValue(API_BASE_URL_ENV));

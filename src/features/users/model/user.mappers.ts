@@ -1,9 +1,8 @@
-﻿import type {
-  CreateUserResponseDto,
+import type {
   GetUserPhotoResponseDto,
   GetUserResponseDto,
 } from '@/features/users/model/user.dto';
-import type { CreateUserResult, User, UserPhoto } from '@/features/users/model/user.types';
+import type { User, UserPhoto } from '@/features/users/model/user.types';
 
 function mapPhoto(dto: GetUserPhotoResponseDto): UserPhoto {
   return {
@@ -11,13 +10,6 @@ function mapPhoto(dto: GetUserPhotoResponseDto): UserPhoto {
     url: dto.url,
     sortOrder: dto.sortOrder,
     uploadedAt: new Date(dto.uploadedAt),
-  };
-}
-
-export function mapCreateUserResponse(dto: CreateUserResponseDto): CreateUserResult {
-  return {
-    id: dto.id,
-    email: dto.email,
   };
 }
 

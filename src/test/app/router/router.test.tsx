@@ -17,7 +17,7 @@ describe('app router', () => {
           ? input.toString()
           : input.url;
 
-      if (url.includes(apiPaths.auth.refresh) || url.includes(apiPaths.auth.me)) {
+      if (url.includes(apiPaths.auth.refresh) || url.includes(apiPaths.auth.session)) {
         return Promise.resolve(
           new Response(
             JSON.stringify({ code: 'Auth.Unauthorized.InvalidRefreshToken', message: 'Invalid refresh token.' }),
@@ -50,7 +50,7 @@ describe('app router', () => {
 
     renderWithProviders(<RouterProvider router={router} />);
 
-    expect(await screen.findByRole('heading', { name: 'Sign Up' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Confirm your email' })).toBeInTheDocument();
   });
 
   it('redirects anonymous users from /users/me to /', async () => {

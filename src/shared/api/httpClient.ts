@@ -17,6 +17,14 @@ export function clearAccessToken() {
   accessToken = null;
 }
 
+export async function ensureAccessToken() {
+  if (accessToken) {
+    return accessToken;
+  }
+
+  return refreshAccessToken();
+}
+
 function isAbsoluteUrl(path: string) {
   return /^https?:\/\//i.test(path);
 }
